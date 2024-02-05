@@ -1,0 +1,20 @@
+services:
+    postgres-db-tp1:
+        ports:
+            - "5432:5432"
+
+    adminer:
+        container_name: adminer
+        image: adminer
+        restart: always
+        depends_on:
+            - postgres-db-tp1
+        ports:
+            - 8090:8080
+        networks:
+            - hehe-network
+        env_file: .env
+
+    backend-api-tp1:
+        ports:
+            - "8080:8080"
