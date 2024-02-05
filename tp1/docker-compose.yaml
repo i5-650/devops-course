@@ -1,0 +1,36 @@
+version: "3.8"
+services:
+    postgres-db-tp1:
+        container_name: postgres-db-tp1
+        image: postgres-db-tp1
+        build: ./db
+        volumes:
+            - ./local-db:/var/lib/postgresql/data
+        env_file: .env
+        networks:
+            - hehe-network
+
+    backend-api-tp1:
+        env_file: .env
+        container_name: backend-api-tp1
+        image: backend-api-tp1
+        build: ./backend-api/simple-api-student
+        depends_on:
+            - postgres-db-tp1
+        networks:
+            - hehe-network
+
+    http-server:
+        container_name: http-server
+        image: http-server
+        build: ./http-server
+        depends_on:
+            - backend-api-tp1
+        ports:
+            - 80:80
+        networks:
+            - hehe-network
+
+networks:
+    hehe-network:
+        external: true
