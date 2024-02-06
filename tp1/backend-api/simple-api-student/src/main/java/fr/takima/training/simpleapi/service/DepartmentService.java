@@ -20,7 +20,6 @@ public class DepartmentService {
         if (departmentName == null || departmentName.length() == 0) {
             throw new IllegalArgumentException("The department name must not be null or empty.");
         }
-
         return this.departmentDAO.findDepartmentByName(departmentName);
     }
 
