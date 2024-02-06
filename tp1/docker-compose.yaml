@@ -5,7 +5,7 @@ services:
         image: postgres-db-tp1
         build: ./db
         volumes:
-            - ./local-db:/var/lib/postgresql/data
+            - local-db:/var/lib/postgresql/data
         env_file: .env
         networks:
             - hehe-network
@@ -34,3 +34,5 @@ services:
 networks:
     hehe-network:
         external: true
+volumes:
+    local-db:
