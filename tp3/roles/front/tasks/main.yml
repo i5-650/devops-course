@@ -1,0 +1,13 @@
+---
+# tasks file for roles/front
+- name: Run Front-end
+  docker_container:
+      name: front-tp3
+      image: b0x550xaat/front-tp3
+      state: started
+      recreate: true
+      pull: true
+      networks:
+          - name: hehe-network
+      env:
+          VUE_APP_API_URL: "{{ VAR_VUE_APP_API_URL }}"

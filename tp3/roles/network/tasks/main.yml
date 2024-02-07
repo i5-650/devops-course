@@ -1,0 +1,6 @@
+---
+# tasks file for roles/network
+- name: Init Docker Network
+  docker_network:
+      name: hehe-network
+      state: present

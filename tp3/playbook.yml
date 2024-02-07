@@ -1,0 +1,12 @@
+- hosts: all
+  gather_facts: false
+  become: true
+  vars_files:
+      - ansible-vault/vars/vault.yml
+  roles:
+      - docker
+      - network
+      - db
+      - backend-api
+      - front
+      - http-proxy
