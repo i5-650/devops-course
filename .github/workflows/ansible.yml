@@ -1,0 +1,38 @@
+name: Deploy with Ansible
+
+# Trigger the workflow if the dockers images are updated
+on:
+    workflow_run:
+        workflows: ["CI/CD - DevOps - Dockers - TP2"]
+        types:
+            - completed
+        branches:
+            - main
+
+jobs:
+    deploy:
+        # Run the job only if the previous job is successful (CI/CD - DevOps - Dockers - TP2, so if the dockers images are updated)
+        if: ${{ github.event.workflow_run.conclusion == 'success' }}
+        runs-on: ubuntu-22.04
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4.1.1
+
+            - name: Run playbook
+              uses: dawidd6/action-ansible-playbook@v2
+              with:
+                  # Required, playbook filepath, relative to the repository root
+                  playbook: tp3/playbook.yml
+                  # Optional, SSH private key to connect to the target host
+                  key: ${{secrets.SSH_PRIVATE_KEY}}
+                  # Optional, literal inventory file contents, in our case, we only got one server so we put it's address in the inventory
+                  inventory: |
+                      [all]
+                      ${{secrets.SERVER_ADDRESS}}
+                  # Optional, encrypted vault password, so we access the vault environment variables without any risque
+                  vault_password: ${{secrets.VAULT_PASSWORD}}
+                  # Optional, extra arguments to pass to the ansible-playbook command, we use `-u` to specify the user to connect to the server, else we can't connect
+                  options: |
+                      -u ${{secrets.SSH_USER}}
+                      --verbose

@@ -1,0 +1,12 @@
+---
+# tasks file for roles/http-proxy
+- name: Install httpd
+  docker_container:
+      name: http-server-tp1
+      image: b0x550xaat/http-server-tp1
+      recreate: true
+      pull: true
+      ports:
+          - "80:80"
+      networks:
+          - name: hehe-network
