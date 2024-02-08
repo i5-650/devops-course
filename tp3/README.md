@@ -52,6 +52,10 @@ The github actions that use our ansible playbook is [here](.github/workflows/ans
 ## The HTTP Server
 Because the HTTP server should allow you to access the content of the front and the API, I decided to root everything that starts with `/api` to the API and everything else to the front. I'm not really using the port like I should, but I think it's a good way to do it.
 
+## Proxy Authentication
+I set up a proxy authentication because everyone could access it and insert data. So I didn't want this to append. I used the `auth_basic` and `auth_basic_user_file` to set up the authentication. I also used the `htpasswd` command to create the file that contains the users and their passwords.
+That wasn't asked but I was too curious to not do it.
+
 
 ## Flaws
 - The Front is not quite variablized.
@@ -60,6 +64,8 @@ Because the HTTP server should allow you to access the content of the front and 
     - One for the API and the database
     - One for the front and the http server
     - Maybe, if asked, one for the http server and the API
+- I didn't use a volume for the database, so if the container is removed, the data is lost.
+    - I did this on purpose, because i know that the database is not important for this project, but in a real project, I would have used a volume. In addition, it was useful to have a fresh database until the proxy authentication was set up.
 
 
 ## Environment
