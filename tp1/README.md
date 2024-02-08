@@ -51,7 +51,11 @@ Then you can push the image to the docker hub.
 docker push username/http-server-tp1:1.0
 ```
 
+## Httpd Conf
+The httpd conf is [here](http-server-tp1/httpd.conf).
+Where the reverse proxy and other configurations are isn't the place they should be. There is sections for the reverse proxy and the virtual hosts.
 
+But for debugging purposes, I put everything at the end of the file.
 
 ## End
 The images are available on the docker hub: https://hub.docker.com/u/b0x550xaat
